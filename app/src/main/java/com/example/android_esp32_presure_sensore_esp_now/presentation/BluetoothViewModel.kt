@@ -85,9 +85,9 @@ class BluetoothViewModel @Inject constructor(
         deviceConnectionJob = bluetoothController.connectToESPExp(device).listen() //call the extension function
     }
     */
-    fun connectToESP(device:BluetoothDeviceDomain){
+    fun connectToESP(device:BluetoothDeviceDomain,onDeviceConnect: ()->Unit){
         _state.update { it.copy(isConnecting = true) }
-         bluetoothController.connectToESP(device)//call the extension function
+         bluetoothController.connectToESP(device){onDeviceConnect()}//call the extension function
     }
     fun startAWorkoutSession(){
         Log.d(TAG, "startAWorkoutSession: ")

@@ -12,11 +12,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.android_esp32_presure_sensore_esp_now.domain.BluetoothDeviceDomain
+import kotlin.reflect.KFunction2
 
 @Composable
 fun SavedDevices(
     pairedDevice: List<BluetoothDeviceDomain>,
-    onDeviceClick :(BluetoothDeviceDomain)->Unit,
+    onDeviceClick: KFunction2<BluetoothDeviceDomain, () -> Unit, Unit>,
+    onDeviceConnect: ()->Unit,
     modifier: Modifier = Modifier
 ){
     LazyColumn(modifier = modifier) {
@@ -28,7 +30,7 @@ fun SavedDevices(
                 text = device.name.toString(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDeviceClick(device) }
+                    .clickable { onDeviceClick(device) { onDeviceConnect() } }
                     .padding(16.dp)
             )
         }

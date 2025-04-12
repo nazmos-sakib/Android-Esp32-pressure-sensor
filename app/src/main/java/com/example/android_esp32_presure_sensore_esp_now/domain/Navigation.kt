@@ -31,11 +31,12 @@ fun NavGraphBuilder.routsGraph(
     viewModel: BluetoothViewModel
 ) {
 
+    /*
     when{
         uiState.isConnected ->{
             appState.navigate(ROUTE_TERMINAL)
         }
-    }
+    }*/
 
     composable(ROUTE_TERMINAL){
         //HomeScreen(onClickGotoBluetoothScreen = { route -> appState.navigate (route) })
@@ -60,7 +61,8 @@ fun NavGraphBuilder.routsGraph(
         PairNewDevice(
             scannedDevices = uiState.scannedDevices,
             //onDeviceClick = viewModel::connectToDevice
-            onDeviceClick = viewModel::connectToESP
+            onDeviceClick = viewModel::connectToESP,
+            onDeviceConnect = { appState.navigate(ROUTE_TERMINAL) }
         )
     }
     composable(ROUTE_SAVED_DEVICES){
@@ -68,7 +70,8 @@ fun NavGraphBuilder.routsGraph(
         //viewModel.updatePairedDevice()
         SavedDevices(
             pairedDevice = uiState.pairedDevices,
-            onDeviceClick = viewModel::connectToESP
+            onDeviceClick = viewModel::connectToESP,
+            onDeviceConnect = { appState.navigate(ROUTE_TERMINAL) }
         )
     }
     composable(ROUTE_SETTINGS){

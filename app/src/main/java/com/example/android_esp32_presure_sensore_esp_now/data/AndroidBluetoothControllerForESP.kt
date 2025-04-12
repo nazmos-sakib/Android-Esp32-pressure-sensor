@@ -162,7 +162,7 @@ class AndroidBluetoothControllerForESP(
 
 
 
-    override fun connectToESP(device: BluetoothDeviceDomain){
+    override fun connectToESP(device: BluetoothDeviceDomain,callback: ()->Unit){
 
         if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)){
             throw SecurityException("No BLUETOOTH_CONNECT permission")
@@ -178,6 +178,7 @@ class AndroidBluetoothControllerForESP(
             try {
                 socket.connect()
                 _isConnected.value = true
+                callback() //change status
                 activeSocket = socket
             } catch (e:IOException){
                 Log.d(ERROR_TAG, "connectToDevice: ${e.message}")

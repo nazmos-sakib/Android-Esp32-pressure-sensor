@@ -16,7 +16,7 @@ interface BluetoothControllerForESP {
 
     fun updatePairedDevises()
 
-    fun connectToESP(device:BluetoothDeviceDomain)
+    fun connectToESP(device:BluetoothDeviceDomain,callback: ()->Unit)
     fun startAWorkoutSession(): Flow<ConnectionResult>
 
     fun closeAllConnection()
